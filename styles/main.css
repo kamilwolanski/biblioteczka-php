@@ -1,0 +1,16 @@
+.reset-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.no-books {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    flex-direction: column;
+}
+
+.bi-book {
+    font-size: 8rem;
+}
