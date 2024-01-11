@@ -33,7 +33,17 @@ require_once("connection.php");
 </head>
 
 <body>
+    <nav class="navbar">
+        <div class="container">
+            <?php
+            $basePath = dirname($_SERVER['SCRIPT_NAME']);
+            $basicUrl = $basePath . '/basic.php';
+            echo "<div> <a class=\"btn btn-success\" href=$basicUrl role=\"button\">Strona Główna</a></div>";
+                ?>
 
+
+        </div>
+    </nav>
     <div class="container pt-5 mt-5">
         <h1 class="text-center">Moja Biblioteka</h1>
         <div class="row justify-content-center">

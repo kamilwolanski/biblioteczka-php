@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
 
             unset($_SESSION['showAlert']);
             $result->free_result();
-            header('Location: books.php');
+            header('Location: basic.php');
 
         } else {
             $_SESSION['showAlert'] = true;

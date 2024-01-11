@@ -38,9 +38,12 @@ require 'functions.php';
     <nav class="navbar navbar-light bg-light">
         <div class="container">
             <?php
-            echo "<h3>Witaj " . $_SESSION['user'] . "</h3>";
             $basePath = dirname($_SERVER['SCRIPT_NAME']);
             $logoutUrl = $basePath . '/logout.php';
+            $basicUrl = $basePath . '/basic.php';
+            echo "<div> <a class=\"btn btn-success\" href=$basicUrl role=\"button\">Strona Główna</a></div>";
+            echo "<h3>Witaj " . $_SESSION['user'] . "</h3>";
+            
 
             echo "<a class=\"btn btn-primary\" href=$logoutUrl role=\"button\">Wyloguj</a>"
                 ?>
