@@ -1,6 +1,25 @@
 <?php
 session_start();
 
+require_once("mailService.php");
+
+if (isset($_SESSION['authToken'])) {
+    $mailService = unserialize($_SESSION['authToken']);
+} else {
+    $mailService = new MailService("test@gmail.com");
+    $_SESSION['authToken'] = serialize($mailService);
+}
+
+$mailService->printEmail();
+$mailService->printToken();
+$mailService->sendToken();
+$mailService->verifyToken("798418");
+$mailService->verifyToken("000000");
+// $mailService = new MailService("test@gmail.com");
+// $_SESSION['authToken'] = serialize($mailService);
+// $mailService->printToken();
+// $mailService->verifyToken("920979");
+
 if (!isset($_SESSION['logged'])) {
     header('Location: index.php');
     exit();
