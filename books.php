@@ -38,7 +38,7 @@ require 'functions.php';
     <nav class="navbar navbar-light bg-light">
         <div class="container">
             <?php
-            echo "<h3>Witaj " . $_SESSION['user'] . "</h3>";
+            echo "<h3>Witaj " . $_SESSION['name'] . "</h3>";
             $basePath = dirname($_SERVER['SCRIPT_NAME']);
             $logoutUrl = $basePath . '/logout.php';
 

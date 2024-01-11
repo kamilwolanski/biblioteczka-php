@@ -44,13 +44,18 @@ require_once("connection.php");
                 </div>
                 <form name="form" method="post" action="login.php" class="shadow">
                     <div class="form-group">
-                        <label for="login">Nazwa użytkownika</label>
-                        <input type="text" class="form-control" id="login" placeholder="Nazwa użytkownika" name="login">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="login" placeholder="Email" name="email" value="<?php
+                        if (isset($_SESSION['fr_email'])) {
+                            echo $_SESSION['fr_email'];
+                            unset($_SESSION['fr_email']);
+                        }
+                        ?>">
                         <?php
-                        if (isset($_SESSION['login-error'])) {
-                            echo '<div class="invalid-feedback d-block">' . $_SESSION['login-error'] . '</div>';
+                        if (isset($_SESSION['email-error'])) {
+                            echo '<div class="invalid-feedback d-block">' . $_SESSION['email-error'] . '</div>';
 
-                            unset($_SESSION['login-error']);
+                            unset($_SESSION['email-error']);
 
                         }
                         ?>

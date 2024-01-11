@@ -3,6 +3,7 @@ session_start();
 
 if (isset($_POST['email'])) {
 
+    $ok = true;
     $name = $_POST['name'];
 
     if ((strlen($name) < 2) || (strlen($name) > 20)) {
@@ -31,15 +32,47 @@ if (isset($_POST['email'])) {
         $_SESSION['password1-reg-error'] = 'Podane hasła nie są identyczne!';
     }
 
-    //$password_hash = password_hash($password1, PASSWORD_DEFAULT);
-    //echo $password_hash;
-    //exit();
+    $password_hash = password_hash($password1, PASSWORD_DEFAULT);
 
-    if ($ok == true) {
-        // wszystko ok, dodajemy gracza do bazy
-        echo "Udana walidacja";
-        exit();
+    $_SESSION['fr_name'] = $name;
+    $_SESSION['fr_email'] = $email;
+    $_SESSION['fr_password1'] = $password1;
+    $_SESSION['fr_password2'] = $password2;
+
+    require_once("connection.php");
+
+    mysqli_report(MYSQLI_REPORT_OFF);
+
+    try {
+        $result = $conn->query("SELECT id FROM users WHERE email='$email'");
+
+        if (!$result)
+            throw new Exception($conn->error);
+
+        $emailsCount = $result->num_rows;
+
+        if ($emailsCount > 0) {
+            $ok = false;
+            $_SESSION['email-reg-error'] = "Istnieje już konto przypisane do tego adresu email";
+        }
+
+        if ($ok == true) {
+
+            if ($conn->query("INSERT INTO users VALUES (NULL, '$name', '$email', '$password_hash')")) {
+                $_SESSION['registration_success'] = true;
+                header('Location: welcome.php');
+            } else {
+                throw new Exception($conn->error);
+            }
+        }
+
+        $conn->close();
+    } catch (Exception $e) {
+        echo '<span style="color:red;">Błąd serwera!<span>';
+        echo $e->getCode();
+        echo $e->getMessage();
     }
+
 }
 
 
@@ -82,7 +115,12 @@ require_once("connection.php");
                 <form method="post" class="shadow">
                     <div class="form-group">
                         <label for="name">Imię</label>
-                        <input type="text" class="form-control" id="name" placeholder="Imię" name="name">
+                        <input type="text" class="form-control" id="name" placeholder="Imię" name="name" value="<?php
+                        if (isset($_SESSION['fr_name'])) {
+                            echo $_SESSION['fr_name'];
+                            unset($_SESSION['fr_name']);
+                        }
+                        ?>">
                         <?php
                         if (isset($_SESSION['name-error'])) {
                             echo '<div class="invalid-feedback d-block">' . $_SESSION['name-error'] . '</div>';
@@ -92,9 +130,14 @@ require_once("connection.php");
                         }
                         ?>
                     </div>
-                    <div class="form-group">
+                    <div class=" form-group">
                         <label for="email">E-mail</label>
-                        <input type="email" class="form-control" id="email" placeholder="E-mail" name="email">
+                        <input type="email" class="form-control" id="email" placeholder="E-mail" name="email" value="<?php
+                        if (isset($_SESSION['fr_email'])) {
+                            echo $_SESSION['fr_email'];
+                            unset($_SESSION['fr_email']);
+                        }
+                        ?>">
                         <?php
                         if (isset($_SESSION['email-reg-error'])) {
                             echo '<div class="invalid-feedback d-block">' . $_SESSION['email-reg-error'] . '</div>';
