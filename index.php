@@ -69,6 +69,9 @@ require_once("connection.php");
                     </div>
                     <button type="submit" class="btn btn-primary" name="submit">Zaloguj</button>
                 </form>
+                <div class="text-center mt-5">
+                    <a href="registration.php" class="link-primary">Załóż darmowe konto!</a>
+                </div>
             </div>
         </div>
     </div>
