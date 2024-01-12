@@ -8,6 +8,7 @@ if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
 
 $showAlert = isset($_SESSION['showAlert']) ? true : false;
 unset($_SESSION['showAlert']);
+
 require_once("connection.php");
 ?>
 
@@ -43,15 +44,39 @@ require_once("connection.php");
                 </div>
                 <form name="form" method="post" action="login.php" class="shadow">
                     <div class="form-group">
-                        <label for="login">Nazwa użytkownika</label>
-                        <input type="text" class="form-control" id="login" placeholder="Nazwa użytkownika" name="login">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="login" placeholder="Email" name="email" value="<?php
+                        if (isset($_SESSION['fr_email'])) {
+                            echo $_SESSION['fr_email'];
+                            unset($_SESSION['fr_email']);
+                        }
+                        ?>">
+                        <?php
+                        if (isset($_SESSION['email-error'])) {
+                            echo '<div class="invalid-feedback d-block">' . $_SESSION['email-error'] . '</div>';
+
+                            unset($_SESSION['email-error']);
+
+                        }
+                        ?>
                     </div>
                     <div class="form-group">
                         <label for="password">Hasło</label>
                         <input type="password" class="form-control" id="password" placeholder="Hasło" name="password">
+                        <?php
+                        if (isset($_SESSION['password-error'])) {
+                            echo '<div class="invalid-feedback d-block">' . $_SESSION['password-error'] . '</div>';
+
+                            unset($_SESSION['password-error']);
+
+                        }
+                        ?>
                     </div>
                     <button type="submit" class="btn btn-primary" name="submit">Zaloguj</button>
                 </form>
+                <div class="text-center mt-5">
+                    <a href="registration.php" class="link-primary">Załóż darmowe konto!</a>
+                </div>
             </div>
         </div>
     </div>
@@ -60,7 +85,7 @@ require_once("connection.php");
         const showAlert = "<?php echo $showAlert ?>";
         if (showAlert) {
             document.querySelector("#incorrectLoginDetails").classList.add("show")
-        } 
+        }
     </script>
 
 
