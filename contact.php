@@ -36,15 +36,15 @@ session_start();
             $booksUr1 = $basePath . '/books.php';
             $contactUr1 = $basePath . '/contact.php';
             $mainUr1 = $basePath . '/index.php';
-            echo "<div> <a class=\"btn btn-default\" href=$mainUr1 role=\"button\"><img src=\"img/main.png\" width=\"70\" height=\"auto\"></a></div>";
+            echo "<div> <a class=\"btn btn-light\" href=$mainUr1 role=\"button\"><img src=\"img/main.png\" width=\"70\" height=\"auto\"></a></div>";
             if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
-                echo "<div> <a class=\"btn btn-default\" href=$booksUr1 role=\"button\">Twoje Ksiązki</a></div>";
+                echo "<div> <a class=\"btn btn-light\" href=$booksUr1 role=\"button\">Twoje Ksiązki</a></div>";
             }
-            echo "<div> <a class=\"btn btn-default\" href=$contactUr1 role=\"button\">Kontakt</a></div>";
+            echo "<div> <a class=\"btn btn-success\" href=$contactUr1 role=\"button\">Kontakt</a></div>";
             if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
-                echo "<div><a class=\"btn btn-default\" href=$logoutUrl role=\"button\">Wyloguj</a></div>";
+                echo "<div><a class=\"btn btn-light\" href=$logoutUrl role=\"button\">Wyloguj</a></div>";
             } else {
-                echo "<a class=\"btn btn-default\" href=$loginUr1 role=\"button\">Zaloguj się</a>";
+                echo "<a class=\"btn btn-light\" href=$loginUr1 role=\"button\">Zaloguj się</a>";
             }
             ?>
 
