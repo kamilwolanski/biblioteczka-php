@@ -105,6 +105,29 @@ require_once("connection.php");
 
 <body>
 
+    <nav class="navbar navbar-light bg-light">
+        <div class="container">
+            <?php
+            $basePath = dirname($_SERVER['SCRIPT_NAME']);
+            $logoutUrl = $basePath . '/logout.php';
+            $loginUr1 = $basePath . '/login.php';
+            $booksUr1 = $basePath . '/books.php';
+            $contactUr1 = $basePath . '/contact.php';
+            $mainUr1 = $basePath . '/index.php';
+            echo "<div> <a class=\"btn btn-default\" href=$mainUr1 role=\"button\"><img src=\"img/main.png\" width=\"70\" height=\"auto\"></a></div>";
+            if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
+                echo "<div> <a class=\"btn btn-default\" href=$booksUr1 role=\"button\">Twoje Ksiązki</a></div>";
+            }
+            echo "<div> <a class=\"btn btn-default\" href=$contactUr1 role=\"button\">Kontakt</a></div>";
+            if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
+                echo "<div><a class=\"btn btn-default\" href=$logoutUrl role=\"button\">Wyloguj</a></div>";
+            } else {
+                echo "<a class=\"btn btn-default\" href=$loginUr1 role=\"button\">Zaloguj się</a>";
+            }
+            ?>
+
+    </nav>
+
     <div class="container pt-5 mt-5">
         <h1 class="text-center">Moja Biblioteka</h1>
         <div class="row justify-content-center">

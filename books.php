@@ -1,20 +1,20 @@
 <?php
 session_start();
 
-require_once("mailService.php");
+// require_once("mailService.php");
 
-if (isset($_SESSION['authToken'])) {
-    $mailService = unserialize($_SESSION['authToken']);
-} else {
-    $mailService = new MailService("test@gmail.com");
-    $_SESSION['authToken'] = serialize($mailService);
-}
+// if (isset($_SESSION['authToken'])) {
+//     $mailService = unserialize($_SESSION['authToken']);
+// } else {
+//     $mailService = new MailService("test@gmail.com");
+//     $_SESSION['authToken'] = serialize($mailService);
+// }
 
-$mailService->printEmail();
-$mailService->printToken();
-$mailService->sendToken();
-$mailService->verifyToken("798418");
-$mailService->verifyToken("000000");
+// $mailService->printEmail();
+// $mailService->printToken();
+// $mailService->sendToken();
+// $mailService->verifyToken("798418");
+// $mailService->verifyToken("000000");
 // $mailService = new MailService("test@gmail.com");
 // $_SESSION['authToken'] = serialize($mailService);
 // $mailService->printToken();
@@ -57,15 +57,24 @@ require 'functions.php';
     <nav class="navbar navbar-light bg-light">
         <div class="container">
             <?php
-            echo "<h3>Witaj " . $_SESSION['name'] . "</h3>";
             $basePath = dirname($_SERVER['SCRIPT_NAME']);
             $logoutUrl = $basePath . '/logout.php';
+            $loginUr1 = $basePath . '/login.php';
+            $booksUr1 = $basePath . '/books.php';
+            $contactUr1 = $basePath . '/contact.php';
+            $mainUr1 = $basePath . '/index.php';
+            echo "<div> <a class=\"btn btn-default\" href=$mainUr1 role=\"button\"><img src=\"img/main.png\" width=\"70\" height=\"auto\"></a></div>";
+            if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
+                echo "<div> <a class=\"btn btn-default\" href=$booksUr1 role=\"button\">Twoje Ksiązki</a></div>";
+            }
+            echo "<div> <a class=\"btn btn-default\" href=$contactUr1 role=\"button\">Kontakt</a></div>";
+            if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
+                echo "<div><a class=\"btn btn-default\" href=$logoutUrl role=\"button\">Wyloguj</a></div>";
+            } else {
+                echo "<a class=\"btn btn-default\" href=$loginUr1 role=\"button\">Zaloguj się</a>";
+            }
+            ?>
 
-            echo "<a class=\"btn btn-primary\" href=$logoutUrl role=\"button\">Wyloguj</a>"
-                ?>
-
-
-        </div>
     </nav>
     <main>
         <div class="container pt-5">
