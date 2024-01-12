@@ -58,3 +58,6 @@ img#fotografia:hover {
     opacity: 0.70;
     filter: alpha(opacity=70);
 }
+.btn:hover {
+    background-color: #b7b8b7; /* Green */
+  }
