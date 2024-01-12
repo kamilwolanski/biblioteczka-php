@@ -1,14 +1,7 @@
 <?php
 session_start();
 
-if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
-    header('Location: books.php');
-    exit();
-}
 
-$showAlert = isset($_SESSION['showAlert']) ? true : false;
-unset($_SESSION['showAlert']);
-require_once("connection.php");
 ?>
 
 <!DOCTYPE html>
@@ -27,55 +20,58 @@ require_once("connection.php");
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./styles/main.css" type="text/css">
+    <link rel="stylesheet" href="./styles/main2.css" type="text/css">
     <link rel="stylesheet" href="./styles/form.css" type="text/css">
 
 </head>
 
 <body>
-    <nav class="navbar">
+
+    <nav class="navbar navbar-light bg-light">
         <div class="container">
-            <?php
+            <?php 
             $basePath = dirname($_SERVER['SCRIPT_NAME']);
-            $basicUrl = $basePath . '/basic.php';
-            echo "<div> <a class=\"btn btn-success\" href=$basicUrl role=\"button\">Strona Główna</a></div>";
-                ?>
-
-
-        </div>
+            $logoutUrl = $basePath . '/logout.php';
+            $loginUr1 = $basePath . '/loginmain.php';
+            $booksUr1 = $basePath . '/books.php';
+            $contactUr1 = $basePath . '/contact.php';
+            $mainUr1 = $basePath . '/index.php';
+            echo "<div> <a class=\"btn btn-default\" href=$mainUr1 role=\"button\"><img src=\"img/main.png\" width=\"70\" height=\"auto\"></a></div>";
+            if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)){
+                echo "<div> <a class=\"btn btn-default\" href=$booksUr1 role=\"button\">Twoje Ksiązki</a></div>";
+            }
+            echo "<div> <a class=\"btn btn-default\" href=$contactUr1 role=\"button\">Kontakt</a></div>";
+            if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)){
+                echo "<div><a class=\"btn btn-default\" href=$logoutUrl role=\"button\">Wyloguj</a></div>";
+            }else{
+                echo "<a class=\"btn btn-default\" href=$loginUr1 role=\"button\">Zaloguj się</a>";
+            }
+            ?>
+        
     </nav>
-    <div class="container pt-5 mt-5">
-        <h1 class="text-center">Moja Biblioteka</h1>
-        <div class="row justify-content-center">
-            <div class="col-sm-12 col-md-6">
-                <div class="alert alert-danger fade" role="alert" id="incorrectLoginDetails">
-                    Nieprawidłowy login lub hasło. Spróbuj ponownie
-                </div>
-                <form name="form" method="post" action="login.php" class="shadow">
-                    <div class="form-group">
-                        <label for="login">Nazwa użytkownika</label>
-                        <input type="text" class="form-control" id="login" placeholder="Nazwa użytkownika" name="login">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Hasło</label>
-                        <input type="password" class="form-control" id="password" placeholder="Hasło" name="password">
-                    </div>
-                    <button type="submit" class="btn btn-primary" name="submit">Zaloguj</button>
-                </form>
+        <?php
+        if((isset($_SESSION['user']))){
+        echo "<div style=\"max-width:100%;\" class=\"row justify-content-center\">";
+        echo "<div class=\"col-sm-11 col-md-8 basic-info\">";
+        echo "<h3>Witaj " . $_SESSION['user'] . "<br>Cieszymy się, że jesteś z nami. Życzymy udanych doświadczeń i korzystania z naszej platformy.</h1>";
+        echo "</div></div>";
+        }
+        ?>
+        <div style="max-width:100%;" class="row justify-content-center">
+            <div class="col-sm-11 col-md-8 basic-main">
+            <div class="col-sm-8 bs1"><span>📚 Odkryj Świat Literatury z WorldCat! 🌍
+
+Czy kiedykolwiek marzyłeś o możliwości przeszukiwania największego globalnego zbioru książek? WorldCat to brama do nieograniczonego świata literatury, gdzie miliony książek z tysięcy bibliotek na całym świecie są na wyciągnięcie ręki!</span></div>
+            <div class="col-sm-4 bs2"><a href="https://search.worldcat.org/"><img id="fotografia" src="img/books.jpg"></a></div>
             </div>
         </div>
     </div>
-
     <script>
         const showAlert = "<?php echo $showAlert ?>";
         if (showAlert) {
             document.querySelector("#incorrectLoginDetails").classList.add("show")
         } 
     </script>
-
-
-
-
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
         integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
         crossorigin="anonymous"></script>

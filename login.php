@@ -37,11 +37,11 @@ if (isset($_POST['submit'])) {
 
             unset($_SESSION['showAlert']);
             $result->free_result();
-            header('Location: basic.php');
+            header('Location: index.php');
 
         } else {
             $_SESSION['showAlert'] = true;
-            header("Location: index.php");
+            header("Location: loginmain.php");
         }
     } else {
         echo 'Coś poszło nie tak';

@@ -31,7 +31,7 @@ session_start();
         <div class="container">
             <?php 
             $basePath = dirname($_SERVER['SCRIPT_NAME']);
-            $basicUrl = $basePath . '/basic.php';
+            $basicUrl = $basePath . '/index.php';
             echo "<div> <a class=\"btn btn-success\" href=$basicUrl role=\"button\">Strona Główna</a></div>";
             ?>
         </div>
