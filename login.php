@@ -112,7 +112,7 @@ if (isset($_POST['submit'])) {
     </nav>
 
     <div class="container pt-5 mt-5">
-        <h1 class="text-center">Moja Biblioteka</h1>
+        <h1 class="text-center">Zaloguj się</h1>
         <div class="row justify-content-center">
             <div class="col-sm-12 col-md-6">
                 <div class="alert alert-danger fade" role="alert" id="incorrectLoginDetails">

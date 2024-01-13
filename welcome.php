@@ -57,10 +57,11 @@ if (!isset($_SESSION['registration_success'])) {
     </nav>
 
     <div class="container pt-5 mt-5">
-        <h2>Dziękujemy za rejestrację w serwisie!</h2>
+        <h2 class="text-center">Dziękujemy za rejestrację w serwisie!</h2>
         <div class="row justify-content-center">
-            <div class="col-sm-12 col-md-6">
-            </div>
+            <a href="login.php" class="btn btn-primary btn-lg mt-4">
+                Zaloguj się
+            </a>
         </div>
     </div>
 
