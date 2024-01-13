@@ -2,13 +2,14 @@
 session_start();
 require_once("mailService.php");
 
+
 if (!isset($_SESSION['mailService'])) {
     header("location: index.php");
 } else {
     $mailService = unserialize($_SESSION['mailService']);
     $mailService->printEmail();
 
-    if (isset($_POST['auth-code'])) {
+    if ((isset($_POST['auth-code'])) && (isset($_POST["submit-code"]))) {
         $authCode = $_POST['auth-code'];
         $codeIsValid = $mailService->verifyToken($authCode);
 
@@ -26,7 +27,7 @@ if (!isset($_SESSION['mailService'])) {
                     unset($_SESSION['mailService']);
                     unset($_SESSION['name']);
                     unset($_SESSION['password_hash']);
-
+                    unset($_SESSION['showAlertAuthCode']);
                     header('Location: welcome.php');
                 } else {
                     throw new Exception($conn->error);
@@ -41,7 +42,7 @@ if (!isset($_SESSION['mailService'])) {
 
 
         } else {
-            echo "<h3>NIEPOPRAWNY KOD</h3>";
+            $_SESSION['showAlertAuthCode'] = true;
         }
     }
 }
@@ -103,8 +104,8 @@ if (!isset($_SESSION['mailService'])) {
         </h3>
         <div class="row justify-content-center">
             <div class="col-sm-12 col-md-6">
-                <div class="alert alert-danger fade" role="alert" id="incorrectLoginDetails">
-                    Nieprawidłowy login lub hasło. Spróbuj ponownie
+                <div class="alert alert-danger fade" role="alert" id="incorrectAuthCode">
+                    Nieprawidłowy kod aktywacyjny, spróbuj ponownie
                 </div>
                 <form method="post" class="shadow">
                     <div class=" form-group">
@@ -119,7 +120,7 @@ if (!isset($_SESSION['mailService'])) {
                         }
                         ?>
                     </div>
-                    <button type="submit" class="btn btn-primary" name="submit">Aktywuj konto</button>
+                    <button type="submit" class="btn btn-primary" name="submit-code">Aktywuj konto</button>
                 </form>
             </div>
         </div>
@@ -133,6 +134,14 @@ if (!isset($_SESSION['mailService'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
         crossorigin="anonymous"></script>
+
+    <script>
+        const showAlert = "<?php echo $_SESSION['showAlertAuthCode'] ?>";
+        console.log('showAlert', showAlert)
+        if (showAlert) {
+            document.querySelector("#incorrectAuthCode").classList.add("show")
+        }
+    </script>
 </body>
 
 </html>
