@@ -2,7 +2,7 @@
 class MailService
 {
     private $token;
-    private $email;
+    public $email;
 
     function __construct($email)
     {
@@ -22,8 +22,8 @@ class MailService
         $headres = array(
             "MIME-Version" => "1.0",
             "Content-Type" => "text/html;charset=UTF-8",
-            "From" => "biblioteczka@mail.com",
-            "Reply-To" => "biblioteczka@mail.com",
+            "From" => "biblioteczkabiblioteczke@gmail.com",
+            "Reply-To" => "biblioteczkabiblioteczke@gmail.com",
         );
         $subject = "Kod autoryzacyji";
         $send = mail($this->email, $subject, $this->token, $headres);
