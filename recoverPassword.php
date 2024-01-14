@@ -20,16 +20,16 @@ if (isset($_POST['submit'])) {
 
     if ($mailService->email != $_POST['email']) {
         $_SESSION['email'] = $_POST['email'];
-        echo "<script>console.log('Email is: " . $_SESSION['email'] . "' );</script>";
+        // echo "<script>console.log('Email is: " . $_SESSION['email'] . "' );</script>";
         if ($mailService->email != $_SESSION['email']) {
             $mailService = new MailService($_SESSION['email']);
             $_SESSION['mailService'] = serialize($mailService);
         }
         $mailService->sendToken();
-        $mailService->printEmail();
-        $mailService->printToken();
+        // $mailService->printEmail();
+        // $mailService->printToken();
     } else {
-        echo "<script>console.log('Token is: " . $_SESSION['token'] . "' );</script>";
+        // echo "<script>console.log('Token is: " . $_SESSION['token'] . "' );</script>";
         $_SESSION['token'] = $_POST['token'];
         if ($mailService->verifyToken($_SESSION['token'])) {
             $basePath = dirname($_SERVER['SCRIPT_NAME']);

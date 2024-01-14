@@ -41,10 +41,10 @@ if (isset($_POST['password1'])) {
         }
 
         if ($ok == true) {
-
+            $email = $_SESSION['email'];
             if ($conn->query("UPDATE users SET password = '$password_hash' WHERE email = '$email'")) {
                 $_SESSION['registration_success'] = true;
-                header('Location: welcome.php');
+                header('Location: index.php');
             } else {
                 throw new Exception($conn->error);
             }
