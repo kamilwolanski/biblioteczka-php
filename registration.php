@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once("mailService.php");
 
 if (isset($_POST['email'])) {
 
@@ -57,13 +58,13 @@ if (isset($_POST['email'])) {
         }
 
         if ($ok == true) {
-
-            if ($conn->query("INSERT INTO users VALUES (NULL, '$name', '$email', '$password_hash')")) {
-                $_SESSION['registration_success'] = true;
-                header('Location: welcome.php');
-            } else {
-                throw new Exception($conn->error);
-            }
+            $mailService = new MailService($email);
+            $mailService->sendToken();
+            $_SESSION['mailService'] = serialize($mailService);
+            $_SESSION['name'] = $name;
+            $_SESSION['password_hash'] = $password_hash;
+            header('Location: confirm.php');
+            exit();
         }
 
         $conn->close();
@@ -127,7 +128,7 @@ unset($_SESSION['showAlert']);
     </nav>
 
     <div class="container pt-5 mt-5">
-        <h1 class="text-center">Moja Biblioteka</h1>
+        <h1 class="text-center">Zarejestruj się</h1>
         <div class="row justify-content-center">
             <div class="col-sm-12 col-md-6">
                 <div class="alert alert-danger fade" role="alert" id="incorrectLoginDetails">
