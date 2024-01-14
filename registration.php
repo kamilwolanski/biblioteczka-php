@@ -134,7 +134,7 @@ unset($_SESSION['showAlert']);
                 <div class="alert alert-danger fade" role="alert" id="incorrectLoginDetails">
                     Nieprawidłowy login lub hasło. Spróbuj ponownie
                 </div>
-                <form method="post" class="shadow">
+                <form method="post" class="shadow mb-4">
                     <div class="form-group">
                         <label for="name">Imię</label>
                         <input type="text" class="form-control" id="name" placeholder="Imię" name="name" value="<?php
@@ -197,6 +197,10 @@ unset($_SESSION['showAlert']);
         const showAlert = "<?php echo $showAlert ?>";
         if (showAlert) {
             document.querySelector("#incorrectLoginDetails").classList.add("show")
+
+            <?php
+            unset($_SESSION['showAlert']);
+            ?>
         }
     </script>
 

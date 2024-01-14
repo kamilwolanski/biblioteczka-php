@@ -3,7 +3,7 @@ mysqli_report(MYSQLI_REPORT_OFF);
 
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 $db_name = "biblioteczka";
 $conn = @new mysqli($servername, $username, $password, $db_name, 3306);
 

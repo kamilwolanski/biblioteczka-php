@@ -16,30 +16,31 @@ if (isset($_SESSION['mailService'])) {
     $_SESSION['mailService'] = serialize($mailService);
 }
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['submit-recovery-code'])) {
 
-    if ($mailService->email != $_POST['email']) {
-        $_SESSION['email'] = $_POST['email'];
-        // echo "<script>console.log('Email is: " . $_SESSION['email'] . "' );</script>";
-        if ($mailService->email != $_SESSION['email']) {
-            $mailService = new MailService($_SESSION['email']);
-            $_SESSION['mailService'] = serialize($mailService);
-        }
-        $mailService->sendToken();
-        // $mailService->printEmail();
-        // $mailService->printToken();
-    } else {
-        // echo "<script>console.log('Token is: " . $_SESSION['token'] . "' );</script>";
-        $_SESSION['token'] = $_POST['token'];
-        if ($mailService->verifyToken($_SESSION['token'])) {
-            $basePath = dirname($_SERVER['SCRIPT_NAME']);
-            $setPasswordUrl = $basePath . '/setPassword.php';
-            echo "<script>console.log('URL is: " . $setPasswordUrl . "' );</script>";
-            header('Location: ' . $setPasswordUrl);
-        }
+    $_SESSION['email'] = $_POST['email'];
+    echo "<script>console.log('Email is: " . $_SESSION['email'] . "' );</script>";
+    if ($mailService->email != $_SESSION['email']) {
+        $mailService = new MailService($_SESSION['email']);
+        $_SESSION['mailService'] = serialize($mailService);
     }
+    $mailService->sendToken();
+    // $mailService->printEmail();
+    // $mailService->printToken();
 
 }
+
+if (isset($_POST['submit-check-code'])) {
+    // echo "<script>console.log('Token is: " . $_SESSION['token'] . "' );</script>";
+    $_SESSION['token'] = $_POST['token'];
+    if ($mailService->verifyToken($_SESSION['token'])) {
+        $basePath = dirname($_SERVER['SCRIPT_NAME']);
+        $setPasswordUrl = $basePath . '/setPassword.php';
+        echo "<script>console.log('URL is: " . $setPasswordUrl . "' );</script>";
+        header('Location: ' . $setPasswordUrl);
+    }
+}
+
 
 ?>
 
@@ -65,6 +66,28 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container">
+            <?php
+            $basePath = dirname($_SERVER['SCRIPT_NAME']);
+            $logoutUrl = $basePath . '/logout.php';
+            $loginUr1 = $basePath . '/login.php';
+            $booksUr1 = $basePath . '/books.php';
+            $contactUr1 = $basePath . '/contact.php';
+            $mainUr1 = $basePath . '/index.php';
+            echo "<div> <a class=\"btn btn-light\" href=$mainUr1 role=\"button\"><img src=\"img/main.png\" width=\"70\" height=\"auto\"></a></div>";
+            if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
+                echo "<div> <a class=\"btn btn-light\" href=$booksUr1 role=\"button\">Twoje Ksiązki</a></div>";
+            }
+            echo "<div> <a class=\"btn btn-light\" href=$contactUr1 role=\"button\">Kontakt</a></div>";
+            if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
+                echo "<div><a class=\"btn btn-light\" href=$logoutUrl role=\"button\">Wyloguj</a></div>";
+            } else {
+                echo "<div><a class=\"btn btn-light\" href=$loginUr1 role=\"button\">Zaloguj się</a></div>";
+            }
+            ?>
+
+    </nav>
     <div class="container pt-5 mt-5">
         <h1 class="text-center">Udzyskaj hasło</h1>
         <div class="row justify-content-center">
@@ -86,7 +109,9 @@ if (isset($_POST['submit'])) {
                         }
                         ?>
                     </div>
-                    <button type="submit" class="btn btn-primary" name="submit">Wyślij kod</button>
+                    <button type="submit" class="btn btn-primary" name="submit-recovery-code">Wyślij kod</button>
+                </form>
+                <form name="form" method="post" action="recoverPassword.php" class="shadow mt-3">
                     <div class="form-group">
                         <label for="authToken">Kod autoryzacji</label>
                         <input type="token" class="form-control" id="authToken" placeholder="Kod" name="token" value="<?php
@@ -96,7 +121,7 @@ if (isset($_POST['submit'])) {
                         }
                         ?>">
                     </div>
-                    <button type="submit" class="btn btn-primary" name="submit">Sprawdź kod</button>
+                    <button type="submit" class="btn btn-primary" name="submit-check-code">Sprawdź kod</button>
                 </form>
             </div>
         </div>

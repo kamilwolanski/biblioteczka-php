@@ -82,11 +82,33 @@ if (isset($_POST['password1'])) {
 </head>
 
 <body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container">
+            <?php
+            $basePath = dirname($_SERVER['SCRIPT_NAME']);
+            $logoutUrl = $basePath . '/logout.php';
+            $loginUr1 = $basePath . '/login.php';
+            $booksUr1 = $basePath . '/books.php';
+            $contactUr1 = $basePath . '/contact.php';
+            $mainUr1 = $basePath . '/index.php';
+            echo "<div> <a class=\"btn btn-light\" href=$mainUr1 role=\"button\"><img src=\"img/main.png\" width=\"70\" height=\"auto\"></a></div>";
+            if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
+                echo "<div> <a class=\"btn btn-light\" href=$booksUr1 role=\"button\">Twoje Ksiązki</a></div>";
+            }
+            echo "<div> <a class=\"btn btn-light\" href=$contactUr1 role=\"button\">Kontakt</a></div>";
+            if ((isset($_SESSION['logged'])) && ($_SESSION['logged'] == true)) {
+                echo "<div><a class=\"btn btn-light\" href=$logoutUrl role=\"button\">Wyloguj</a></div>";
+            } else {
+                echo "<div><a class=\"btn btn-light\" href=$loginUr1 role=\"button\">Zaloguj się</a></div>";
+            }
+            ?>
+
+    </nav>
     <div class="container pt-5 mt-5">
         <h1 class="text-center">Ustaw nowe hasło</h1>
         <div class="row justify-content-center">
             <div class="col-sm-12 col-md-6">
-                <form name="form" method="post" action="recoverPassword.php" class="shadow">
+                <form name="form" method="post" action="setPassword.php" class="shadow">
                     <div class="form-group">
                         <label for="password1">Hasło</label>
                         <input type="password" class="form-control" id="password1" placeholder="Hasło" name="password1">

@@ -164,6 +164,10 @@ if (isset($_POST['submit'])) {
         const showAlert = "<?php echo $_SESSION['showAlert'] ?>";
         if (showAlert) {
             document.querySelector("#incorrectLoginDetails").classList.add("show")
+
+            <?php
+            unset($_SESSION['showAlert']);
+            ?>
         }
     </script>
 
