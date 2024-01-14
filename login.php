@@ -153,6 +153,9 @@ if (isset($_POST['submit'])) {
                 <div class="text-center mt-5">
                     <a href="registration.php" class="link-primary">Załóż darmowe konto!</a>
                 </div>
+                <div class="text-center mt-5">
+                    <a href="recoverPassword.php" class="link-primary">Odzyskaj hasło</a>
+                </div>
             </div>
         </div>
     </div>

@@ -1,8 +1,8 @@
 <?php
 class MailService
 {
-    private $token;
-    private $email;
+    public $token;
+    public $email;
 
     function __construct($email)
     {

@@ -1,15 +1,15 @@
 <?php
-    mysqli_report(MYSQLI_REPORT_OFF);
+mysqli_report(MYSQLI_REPORT_OFF);
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $db_name = "biblioteczka";
-    $conn = @new mysqli($servername, $username, $password, $db_name, 3306);
+$servername = "localhost";
+$username = "root";
+$password = "root";
+$db_name = "biblioteczka";
+$conn = @new mysqli($servername, $username, $password, $db_name, 3306);
 
-    if($conn->connect_error) {
-        die("Connection failed".$conn->connect_errno);
-    }
+if ($conn->connect_error) {
+    die("Connection failed" . $conn->connect_errno);
+}
 
-    echo "";
+echo "";
 ?>
