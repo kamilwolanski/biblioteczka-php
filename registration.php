@@ -79,8 +79,6 @@ if (isset($_POST['email'])) {
 
 $showAlert = isset($_SESSION['showAlert']) ? true : false;
 unset($_SESSION['showAlert']);
-
-require_once("connection.php");
 ?>
 
 <!DOCTYPE html>
